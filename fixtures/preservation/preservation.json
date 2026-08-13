@@ -42,6 +42,13 @@
     "serialized": "- [ ] Café ☕ résumé review #task"
   },
   {
+    "name": "preservation-body-is-only-a-block-reference",
+    "input": "- [ ] ^my-block-id",
+    "config": { "globalFilter": null },
+    "expected": { "isTask": true, "description": "" },
+    "serialized": "- [ ] ^my-block-id"
+  },
+  {
     "name": "preservation-marker-with-no-usable-value-left-literal",
     "input": "- [ ] Deadline soon 📅 #task",
     "expected": { "isTask": true, "description": "Deadline soon 📅" },

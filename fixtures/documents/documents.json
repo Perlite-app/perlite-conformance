@@ -44,5 +44,31 @@
     "name": "document-unterminated-frontmatter-treated-as-plain-text",
     "content": "---\ntags: [work]\n- [ ] Task #task\n",
     "expected": { "taskCount": 1, "frontmatterTags": [] }
+  },
+  {
+    "name": "document-frontmatter-tag-inheritance-off-by-default",
+    "content": "---\ntags: [work]\n---\n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "allTags": [] }]
+    }
+  },
+  {
+    "name": "document-frontmatter-tag-inheritance-merges-when-enabled",
+    "content": "---\ntags: [work, urgent]\n---\n- [ ] Task #task #home\n",
+    "config": { "frontmatterTagInheritance": true },
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "allTags": ["#home", "#work", "#urgent"] }]
+    }
+  },
+  {
+    "name": "document-frontmatter-tag-inheritance-dedupes-case-insensitively",
+    "content": "---\ntags: [Work]\n---\n- [ ] Task #task #work\n",
+    "config": { "frontmatterTagInheritance": true },
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "allTags": ["#work"] }]
+    }
   }
 ]

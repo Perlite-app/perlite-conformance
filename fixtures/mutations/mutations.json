@@ -1,0 +1,71 @@
+[
+  {
+    "name": "mutation-set-due-inserts-field",
+    "input": "- [ ] Buy milk #task",
+    "mutations": [{ "op": "setDue", "value": "2026-09-01" }],
+    "expectedSerialized": "- [ ] Buy milk #task 📅 2026-09-01"
+  },
+  {
+    "name": "mutation-set-due-replaces-existing-value-only",
+    "input": "- [ ] Buy milk #task 📅 2026-08-13 🔺",
+    "mutations": [{ "op": "setDue", "value": "2026-09-01" }],
+    "expectedSerialized": "- [ ] Buy milk #task 📅 2026-09-01 🔺"
+  },
+  {
+    "name": "mutation-remove-due",
+    "input": "- [ ] Buy milk #task 📅 2026-08-13",
+    "mutations": [{ "op": "setDue", "value": null }],
+    "expectedSerialized": "- [ ] Buy milk #task"
+  },
+  {
+    "name": "mutation-set-priority-inserts-marker",
+    "input": "- [ ] Buy milk #task",
+    "mutations": [{ "op": "setPriority", "value": "high" }],
+    "expectedSerialized": "- [ ] Buy milk #task ⏫"
+  },
+  {
+    "name": "mutation-set-priority-normal-removes-leading-marker-without-double-space",
+    "input": "- [ ] 🔺 Buy milk #task",
+    "mutations": [{ "op": "setPriority", "value": "normal" }],
+    "expectedSerialized": "- [ ] Buy milk #task"
+  },
+  {
+    "name": "mutation-add-tag",
+    "input": "- [ ] Buy milk #task",
+    "mutations": [{ "op": "addTag", "value": "#errands" }],
+    "expectedSerialized": "- [ ] Buy milk #task #errands"
+  },
+  {
+    "name": "mutation-add-tag-is-case-insensitive-dedupe-noop",
+    "input": "- [ ] Buy milk #task #errands",
+    "mutations": [{ "op": "addTag", "value": "#Errands" }],
+    "expectedSerialized": "- [ ] Buy milk #task #errands"
+  },
+  {
+    "name": "mutation-remove-tag",
+    "input": "- [ ] Buy milk #task #errands",
+    "mutations": [{ "op": "removeTag", "value": "#errands" }],
+    "expectedSerialized": "- [ ] Buy milk #task"
+  },
+  {
+    "name": "mutation-set-status-complete",
+    "input": "- [ ] Buy milk #task",
+    "mutations": [{ "op": "setStatus", "value": "x" }],
+    "expectedSerialized": "- [x] Buy milk #task"
+  },
+  {
+    "name": "mutation-set-description-replaces-leading-text-only",
+    "input": "- [ ] Buy milk #task 📅 2026-08-13",
+    "mutations": [{ "op": "setDescription", "value": "Buy oat milk" }],
+    "expectedSerialized": "- [ ] Buy oat milk #task 📅 2026-08-13"
+  },
+  {
+    "name": "mutation-sequential-status-then-tag",
+    "input": "- [ ] Buy milk #task",
+    "mutations": [
+      { "op": "setStatus", "value": "x" },
+      { "op": "addTag", "value": "#done-early" }
+    ],
+    "expectedSerialized": "- [x] Buy milk #task #done-early"
+  }
+]

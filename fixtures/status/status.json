@@ -1,0 +1,112 @@
+[
+  {
+    "name": "status-todo",
+    "input": "- [ ] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": " ", "kind": "todo" },
+      "description": "Buy milk"
+    },
+    "serialized": "- [ ] Buy milk #task"
+  },
+  {
+    "name": "status-done-lowercase",
+    "input": "- [x] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "x", "kind": "done" }
+    },
+    "serialized": "- [x] Buy milk #task"
+  },
+  {
+    "name": "status-done-uppercase",
+    "input": "- [X] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "X", "kind": "done" }
+    },
+    "serialized": "- [X] Buy milk #task"
+  },
+  {
+    "name": "status-cancelled",
+    "input": "- [-] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "-", "kind": "cancelled" }
+    },
+    "serialized": "- [-] Buy milk #task"
+  },
+  {
+    "name": "status-custom-in-progress",
+    "input": "- [/] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "/", "kind": "custom" }
+    },
+    "serialized": "- [/] Buy milk #task"
+  },
+  {
+    "name": "status-custom-on-hold",
+    "input": "- [!] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "!", "kind": "custom" }
+    },
+    "serialized": "- [!] Buy milk #task"
+  },
+  {
+    "name": "status-custom-planned",
+    "input": "- [>] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": ">", "kind": "custom" }
+    },
+    "serialized": "- [>] Buy milk #task"
+  },
+  {
+    "name": "status-custom-arbitrary-character",
+    "input": "- [?] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "status": { "symbol": "?", "kind": "custom" }
+    },
+    "serialized": "- [?] Buy milk #task"
+  },
+  {
+    "name": "status-asterisk-list-marker",
+    "input": "* [ ] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "listMarker": "* "
+    },
+    "serialized": "* [ ] Buy milk #task"
+  },
+  {
+    "name": "status-plus-list-marker",
+    "input": "+ [ ] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "listMarker": "+ "
+    },
+    "serialized": "+ [ ] Buy milk #task"
+  },
+  {
+    "name": "status-ordered-list-marker",
+    "input": "1. [ ] Buy milk #task",
+    "expected": {
+      "isTask": true,
+      "listMarker": "1. "
+    },
+    "serialized": "1. [ ] Buy milk #task"
+  },
+  {
+    "name": "status-not-a-checklist-item",
+    "input": "- Buy milk #task",
+    "expected": { "isTask": false }
+  },
+  {
+    "name": "status-excluded-by-global-filter",
+    "input": "- [ ] Buy milk",
+    "expected": { "isTask": false }
+  }
+]

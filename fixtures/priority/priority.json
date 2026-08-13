@@ -1,0 +1,44 @@
+[
+  {
+    "name": "priority-highest",
+    "input": "- [ ] Buy milk #task 🔺",
+    "expected": { "isTask": true, "priority": "highest" },
+    "serialized": "- [ ] Buy milk #task 🔺"
+  },
+  {
+    "name": "priority-high",
+    "input": "- [ ] Buy milk #task ⏫",
+    "expected": { "isTask": true, "priority": "high" },
+    "serialized": "- [ ] Buy milk #task ⏫"
+  },
+  {
+    "name": "priority-medium",
+    "input": "- [ ] Buy milk #task 🔼",
+    "expected": { "isTask": true, "priority": "medium" },
+    "serialized": "- [ ] Buy milk #task 🔼"
+  },
+  {
+    "name": "priority-low",
+    "input": "- [ ] Buy milk #task 🔽",
+    "expected": { "isTask": true, "priority": "low" },
+    "serialized": "- [ ] Buy milk #task 🔽"
+  },
+  {
+    "name": "priority-lowest",
+    "input": "- [ ] Buy milk #task ⏬",
+    "expected": { "isTask": true, "priority": "lowest" },
+    "serialized": "- [ ] Buy milk #task ⏬"
+  },
+  {
+    "name": "priority-absent-is-normal",
+    "input": "- [ ] Buy milk #task",
+    "expected": { "isTask": true, "priority": "normal" },
+    "serialized": "- [ ] Buy milk #task"
+  },
+  {
+    "name": "priority-leading-in-body",
+    "input": "- [ ] 🔺 Buy milk #task",
+    "expected": { "isTask": true, "priority": "highest", "description": "Buy milk" },
+    "serialized": "- [ ] 🔺 Buy milk #task"
+  }
+]

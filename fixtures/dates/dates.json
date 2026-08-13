@@ -1,0 +1,87 @@
+[
+  {
+    "name": "date-due",
+    "input": "- [ ] Buy milk #task 📅 2026-08-13",
+    "expected": { "isTask": true, "due": "2026-08-13" },
+    "serialized": "- [ ] Buy milk #task 📅 2026-08-13"
+  },
+  {
+    "name": "date-due-alternate-marker-calendar",
+    "input": "- [ ] Buy milk #task 📆 2026-08-13",
+    "expected": { "isTask": true, "due": "2026-08-13" },
+    "serialized": "- [ ] Buy milk #task 📆 2026-08-13"
+  },
+  {
+    "name": "date-due-alternate-marker-spiral",
+    "input": "- [ ] Buy milk #task 🗓 2026-08-13",
+    "expected": { "isTask": true, "due": "2026-08-13" },
+    "serialized": "- [ ] Buy milk #task 🗓 2026-08-13"
+  },
+  {
+    "name": "date-scheduled",
+    "input": "- [ ] Buy milk #task ⏳ 2026-08-14",
+    "expected": { "isTask": true, "scheduled": "2026-08-14" },
+    "serialized": "- [ ] Buy milk #task ⏳ 2026-08-14"
+  },
+  {
+    "name": "date-scheduled-alternate-marker-hourglass",
+    "input": "- [ ] Buy milk #task ⌛ 2026-08-14",
+    "expected": { "isTask": true, "scheduled": "2026-08-14" },
+    "serialized": "- [ ] Buy milk #task ⌛ 2026-08-14"
+  },
+  {
+    "name": "date-start",
+    "input": "- [ ] Buy milk #task 🛫 2026-08-10",
+    "expected": { "isTask": true, "start": "2026-08-10" },
+    "serialized": "- [ ] Buy milk #task 🛫 2026-08-10"
+  },
+  {
+    "name": "date-created",
+    "input": "- [ ] Buy milk #task ➕ 2026-08-01",
+    "expected": { "isTask": true, "created": "2026-08-01" },
+    "serialized": "- [ ] Buy milk #task ➕ 2026-08-01"
+  },
+  {
+    "name": "date-done",
+    "input": "- [x] Buy milk #task ✅ 2026-08-13",
+    "expected": { "isTask": true, "done": "2026-08-13" },
+    "serialized": "- [x] Buy milk #task ✅ 2026-08-13"
+  },
+  {
+    "name": "date-cancelled",
+    "input": "- [-] Buy milk #task ❌ 2026-08-13",
+    "expected": { "isTask": true, "cancelled": "2026-08-13" },
+    "serialized": "- [-] Buy milk #task ❌ 2026-08-13"
+  },
+  {
+    "name": "date-all-fields-combined",
+    "input": "- [x] Buy milk #task ➕ 2026-08-01 🛫 2026-08-10 ⏳ 2026-08-12 📅 2026-08-13 ✅ 2026-08-13",
+    "expected": {
+      "isTask": true,
+      "created": "2026-08-01",
+      "start": "2026-08-10",
+      "scheduled": "2026-08-12",
+      "due": "2026-08-13",
+      "done": "2026-08-13"
+    },
+    "serialized": "- [x] Buy milk #task ➕ 2026-08-01 🛫 2026-08-10 ⏳ 2026-08-12 📅 2026-08-13 ✅ 2026-08-13"
+  },
+  {
+    "name": "date-due-malformed-out-of-range",
+    "input": "- [ ] Buy milk #task 📅 2026-13-45",
+    "expected": { "isTask": true, "due": "invalid:2026-13-45" },
+    "serialized": "- [ ] Buy milk #task 📅 2026-13-45"
+  },
+  {
+    "name": "date-due-malformed-not-a-date",
+    "input": "- [ ] Buy milk #task 📅 not-a-date",
+    "expected": { "isTask": true, "due": "invalid:not-a-date" },
+    "serialized": "- [ ] Buy milk #task 📅 not-a-date"
+  },
+  {
+    "name": "date-due-malformed-wrong-shape",
+    "input": "- [ ] Buy milk #task 📅 2026-8-13",
+    "expected": { "isTask": true, "due": "invalid:2026-8-13" },
+    "serialized": "- [ ] Buy milk #task 📅 2026-8-13"
+  }
+]

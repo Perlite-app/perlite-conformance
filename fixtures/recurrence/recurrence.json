@@ -1,0 +1,50 @@
+[
+  {
+    "name": "recurrence-daily",
+    "input": "- [ ] Water plants #task 🔁 every day",
+    "expected": { "isTask": true, "recurrenceRule": "every day" },
+    "serialized": "- [ ] Water plants #task 🔁 every day"
+  },
+  {
+    "name": "recurrence-weekly",
+    "input": "- [ ] Water plants #task 🔁 every week",
+    "expected": { "isTask": true, "recurrenceRule": "every week" },
+    "serialized": "- [ ] Water plants #task 🔁 every week"
+  },
+  {
+    "name": "recurrence-interval",
+    "input": "- [ ] Water plants #task 🔁 every 3 weeks",
+    "expected": { "isTask": true, "recurrenceRule": "every 3 weeks" },
+    "serialized": "- [ ] Water plants #task 🔁 every 3 weeks"
+  },
+  {
+    "name": "recurrence-weekday-constraint",
+    "input": "- [ ] Water plants #task 🔁 every week on Sunday",
+    "expected": { "isTask": true, "recurrenceRule": "every week on Sunday" },
+    "serialized": "- [ ] Water plants #task 🔁 every week on Sunday"
+  },
+  {
+    "name": "recurrence-when-done-variant",
+    "input": "- [ ] Water plants #task 🔁 every 3 days when done",
+    "expected": { "isTask": true, "recurrenceRule": "every 3 days when done" },
+    "serialized": "- [ ] Water plants #task 🔁 every 3 days when done"
+  },
+  {
+    "name": "recurrence-monthly",
+    "input": "- [ ] Pay rent #task 🔁 every month",
+    "expected": { "isTask": true, "recurrenceRule": "every month" },
+    "serialized": "- [ ] Pay rent #task 🔁 every month"
+  },
+  {
+    "name": "recurrence-yearly",
+    "input": "- [ ] Renew passport #task 🔁 every year",
+    "expected": { "isTask": true, "recurrenceRule": "every year" },
+    "serialized": "- [ ] Renew passport #task 🔁 every year"
+  },
+  {
+    "name": "recurrence-stops-before-following-date-field",
+    "input": "- [ ] Water plants #task 🔁 every 3 days 📅 2026-08-13",
+    "expected": { "isTask": true, "recurrenceRule": "every 3 days", "due": "2026-08-13" },
+    "serialized": "- [ ] Water plants #task 🔁 every 3 days 📅 2026-08-13"
+  }
+]

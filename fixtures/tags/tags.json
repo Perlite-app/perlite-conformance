@@ -1,0 +1,46 @@
+[
+  {
+    "name": "tag-single",
+    "input": "- [ ] Buy milk #task #errands",
+    "expected": { "isTask": true, "tags": ["#errands"], "description": "Buy milk #errands" },
+    "serialized": "- [ ] Buy milk #task #errands"
+  },
+  {
+    "name": "tag-nested",
+    "input": "- [ ] Buy milk #task #project/subproject",
+    "expected": { "isTask": true, "tags": ["#project/subproject"] },
+    "serialized": "- [ ] Buy milk #task #project/subproject"
+  },
+  {
+    "name": "tag-multiple",
+    "input": "- [ ] Buy milk #task #errands #urgent",
+    "expected": { "isTask": true, "tags": ["#errands", "#urgent"] },
+    "serialized": "- [ ] Buy milk #task #errands #urgent"
+  },
+  {
+    "name": "tag-emoji",
+    "input": "- [ ] Buy milk #task #🔥",
+    "expected": { "isTask": true, "tags": ["#🔥"] },
+    "serialized": "- [ ] Buy milk #task #🔥"
+  },
+  {
+    "name": "tag-global-filter-excluded-from-tags-and-description",
+    "input": "- [ ] Buy milk #task #errands",
+    "config": { "globalFilter": "#task" },
+    "expected": { "isTask": true, "tags": ["#errands"], "description": "Buy milk #errands" },
+    "serialized": "- [ ] Buy milk #task #errands"
+  },
+  {
+    "name": "tag-stops-at-trailing-punctuation",
+    "input": "- [ ] Buy milk #task #errands, more items",
+    "expected": { "isTask": true, "tags": ["#errands"], "description": "Buy milk #errands, more items" },
+    "serialized": "- [ ] Buy milk #task #errands, more items"
+  },
+  {
+    "name": "tag-no-global-filter-configured",
+    "input": "- [ ] Buy milk #errands",
+    "config": { "globalFilter": null },
+    "expected": { "isTask": true, "tags": ["#errands"] },
+    "serialized": "- [ ] Buy milk #errands"
+  }
+]

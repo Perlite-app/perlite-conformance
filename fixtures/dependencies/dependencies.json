@@ -1,0 +1,26 @@
+[
+  {
+    "name": "dependency-id",
+    "input": "- [ ] Step 1 #task 🆔 abc123",
+    "expected": { "isTask": true, "id": "abc123" },
+    "serialized": "- [ ] Step 1 #task 🆔 abc123"
+  },
+  {
+    "name": "dependency-blocked-by-single",
+    "input": "- [ ] Step 2 #task ⛔ abc123",
+    "expected": { "isTask": true, "blockedBy": ["abc123"] },
+    "serialized": "- [ ] Step 2 #task ⛔ abc123"
+  },
+  {
+    "name": "dependency-blocked-by-multiple",
+    "input": "- [ ] Step 3 #task ⛔ abc123,def456",
+    "expected": { "isTask": true, "blockedBy": ["abc123", "def456"] },
+    "serialized": "- [ ] Step 3 #task ⛔ abc123,def456"
+  },
+  {
+    "name": "dependency-id-and-blocked-by-combined",
+    "input": "- [ ] Step 2 #task 🆔 def456 ⛔ abc123",
+    "expected": { "isTask": true, "id": "def456", "blockedBy": ["abc123"] },
+    "serialized": "- [ ] Step 2 #task 🆔 def456 ⛔ abc123"
+  }
+]

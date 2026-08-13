@@ -1,0 +1,48 @@
+[
+  {
+    "name": "document-backtick-fence-excludes-tasks",
+    "content": "- [ ] Real task #task\n```\n- [ ] Fake task inside a fence #task\n```\n- [ ] Another real task #task\n",
+    "expected": { "taskCount": 2 }
+  },
+  {
+    "name": "document-tilde-fence-excludes-tasks",
+    "content": "- [ ] Real task #task\n~~~\n- [ ] Fake task inside a fence #task\n~~~\n",
+    "expected": { "taskCount": 1 }
+  },
+  {
+    "name": "document-frontmatter-inline-array-tags",
+    "content": "---\ntags: [work, personal/errands]\n---\n- [ ] Task #task\n",
+    "expected": { "taskCount": 1, "frontmatterTags": ["#work", "#personal/errands"] }
+  },
+  {
+    "name": "document-frontmatter-list-tags",
+    "content": "---\ntags:\n  - work\n  - urgent\n---\n- [ ] Task #task\n",
+    "expected": { "taskCount": 1, "frontmatterTags": ["#work", "#urgent"] }
+  },
+  {
+    "name": "document-mixed-line-endings",
+    "content": "- [ ] One #task\r\n- [ ] Two #task\n- [ ] Three #task\r\n",
+    "expected": { "taskCount": 3 }
+  },
+  {
+    "name": "document-missing-trailing-newline",
+    "content": "- [ ] One #task\n- [ ] Two #task",
+    "expected": { "taskCount": 2 }
+  },
+  {
+    "name": "document-nested-subtasks",
+    "content": "- [ ] Parent task #task\n\t- [ ] Child task #task\n",
+    "expected": {
+      "taskCount": 2,
+      "tasks": [
+        { "description": "Parent task", "indentDepth": 0 },
+        { "description": "Child task", "indentDepth": 1 }
+      ]
+    }
+  },
+  {
+    "name": "document-unterminated-frontmatter-treated-as-plain-text",
+    "content": "---\ntags: [work]\n- [ ] Task #task\n",
+    "expected": { "taskCount": 1, "frontmatterTags": [] }
+  }
+]

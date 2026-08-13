@@ -1,0 +1,50 @@
+[
+  {
+    "name": "link-wikilink-no-alias",
+    "input": "- [ ] See [[Project Notes]] #task",
+    "expected": {
+      "isTask": true,
+      "links": [{ "target": "Project Notes", "alias": null }],
+      "description": "See [[Project Notes]]"
+    },
+    "serialized": "- [ ] See [[Project Notes]] #task"
+  },
+  {
+    "name": "link-wikilink-with-alias",
+    "input": "- [ ] See [[Project Notes|Notes]] #task",
+    "expected": {
+      "isTask": true,
+      "links": [{ "target": "Project Notes", "alias": "Notes" }]
+    },
+    "serialized": "- [ ] See [[Project Notes|Notes]] #task"
+  },
+  {
+    "name": "link-wikilink-with-heading",
+    "input": "- [ ] See [[Project Notes#Heading]] #task",
+    "expected": {
+      "isTask": true,
+      "links": [{ "target": "Project Notes#Heading", "alias": null }]
+    },
+    "serialized": "- [ ] See [[Project Notes#Heading]] #task"
+  },
+  {
+    "name": "link-markdown-link-fragment-not-parsed-as-tag",
+    "input": "- [ ] See [buy milk](https://example.com/page#fragment) #task",
+    "expected": {
+      "isTask": true,
+      "tags": [],
+      "description": "See [buy milk](https://example.com/page#fragment)"
+    },
+    "serialized": "- [ ] See [buy milk](https://example.com/page#fragment) #task"
+  },
+  {
+    "name": "link-hash-inside-inline-code-not-a-tag",
+    "input": "- [ ] See `#notatag` #task",
+    "expected": {
+      "isTask": true,
+      "tags": [],
+      "description": "See `#notatag`"
+    },
+    "serialized": "- [ ] See `#notatag` #task"
+  }
+]

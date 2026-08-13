@@ -1,0 +1,107 @@
+[
+  {
+    "name": "recurrence-completion-daily-with-interval",
+    "input": "- [ ] Take vitamins #task 📅 2026-08-13 🔁 every 3 days",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Take vitamins #task 📅 2026-08-13 🔁 every 3 days ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Take vitamins #task 📅 2026-08-16 🔁 every 3 days"
+    }
+  },
+  {
+    "name": "recurrence-completion-weekly-plain",
+    "input": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Water plants #task 📅 2026-08-20 🔁 every week"
+    }
+  },
+  {
+    "name": "recurrence-completion-weekly-with-weekday-constraint",
+    "input": "- [ ] Church #task 📅 2026-08-13 🔁 every week on Sunday",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Church #task 📅 2026-08-13 🔁 every week on Sunday ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Church #task 📅 2026-08-16 🔁 every week on Sunday"
+    }
+  },
+  {
+    "name": "recurrence-completion-monthly-clamps-to-shorter-month",
+    "input": "- [ ] Pay rent #task 📅 2026-01-31 🔁 every month",
+    "today": "2026-02-01",
+    "expected": {
+      "completedLine": "- [x] Pay rent #task 📅 2026-01-31 🔁 every month ✅ 2026-02-01",
+      "nextInstanceLine": "- [ ] Pay rent #task 📅 2026-02-28 🔁 every month"
+    }
+  },
+  {
+    "name": "recurrence-completion-yearly-clamps-leap-day",
+    "input": "- [ ] Leap check #task 📅 2024-02-29 🔁 every year",
+    "today": "2024-03-01",
+    "expected": {
+      "completedLine": "- [x] Leap check #task 📅 2024-02-29 🔁 every year ✅ 2024-03-01",
+      "nextInstanceLine": "- [ ] Leap check #task 📅 2025-02-28 🔁 every year"
+    }
+  },
+  {
+    "name": "recurrence-completion-when-done-shifts-from-original-date",
+    "input": "- [ ] Deep clean #task 📅 2026-08-01 🔁 every week when done",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Deep clean #task 📅 2026-08-01 🔁 every week when done ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Deep clean #task 📅 2026-08-08 🔁 every week when done"
+    }
+  },
+  {
+    "name": "recurrence-completion-no-date-fields-invents-due",
+    "input": "- [ ] Stretch #task 🔁 every day",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Stretch #task 🔁 every day ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Stretch #task 🔁 every day 📅 2026-08-16"
+    }
+  },
+  {
+    "name": "recurrence-completion-preserves-scheduled-offset-from-due",
+    "input": "- [ ] Prep meal #task ⏳ 2026-08-11 📅 2026-08-13 🔁 every week",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Prep meal #task ⏳ 2026-08-11 📅 2026-08-13 🔁 every week ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Prep meal #task ⏳ 2026-08-18 📅 2026-08-20 🔁 every week"
+    }
+  },
+  {
+    "name": "recurrence-completion-created-date-set-to-today-not-shifted",
+    "input": "- [ ] Log entry #task ➕ 2026-08-01 📅 2026-08-13 🔁 every week",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Log entry #task ➕ 2026-08-01 📅 2026-08-13 🔁 every week ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Log entry #task ➕ 2026-08-15 📅 2026-08-20 🔁 every week"
+    }
+  },
+  {
+    "name": "recurrence-completion-non-recurring-task-has-no-next-instance",
+    "input": "- [ ] One-off task #task 📅 2026-08-13",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] One-off task #task 📅 2026-08-13 ✅ 2026-08-15",
+      "nextInstanceLine": null
+    }
+  },
+  {
+    "name": "recurrence-completion-custom-status-resets-to-todo-on-next-instance",
+    "input": "- [/] In progress habit #task 📅 2026-08-13 🔁 every day",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] In progress habit #task 📅 2026-08-13 🔁 every day ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] In progress habit #task 📅 2026-08-14 🔁 every day"
+    }
+  },
+  {
+    "name": "recurrence-completion-unparseable-rule-refuses",
+    "input": "- [ ] Weird task #task 🔁 every month on the 2nd Tuesday",
+    "today": "2026-08-15",
+    "expectRefusal": true
+  }
+]

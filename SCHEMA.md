@@ -7,11 +7,12 @@ loads these fixtures and asserts against them. A parser change is not complete u
 corpus is updated and every implementation passes.
 
 Fixtures live under `fixtures/<category>/`, one JSON file per category holding an array
-of fixture objects. The category directory name determines which of the three fixture
+of fixture objects. The category directory name determines which of the four fixture
 shapes below the file uses:
 
 - `documents/` → **document fixtures**
 - `mutations/` → **mutation fixtures**
+- `recurrence-completion/` → **recurrence completion fixtures**
 - everything else (`status/`, `dates/`, `priority/`, `tags/`, `links/`, `recurrence/`,
   `dependencies/`, `preservation/`) → **line fixtures**
 
@@ -141,3 +142,31 @@ Supported `op` values and their `value` shape:
 | `removeTag` | tag including `#` |
 
 Mutations apply in order, each to the result of the previous one.
+
+## Recurrence completion fixtures
+
+Exercises `RecurrenceEngine.complete` (`Sources/PerliteCore/Recurrence/`): completing a
+task, on a given date, either produces a completed line plus an optional next-instance
+line, or must refuse entirely (§6.3 — an unparseable recurrence rule is never allowed to
+complete-and-drop the task).
+
+```json
+{
+  "name": "recurrence-completion-weekly",
+  "input": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+  "today": "2026-08-15",
+  "config": {},
+  "expected": {
+    "completedLine": "- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15",
+    "nextInstanceLine": "- [ ] Water plants #task 📅 2026-08-20 🔁 every week"
+  }
+}
+```
+
+For a refusal case, replace `expected` with `"expectRefusal": true` — no line fields are
+checked, only that `RecurrenceEngine.complete` throws.
+
+`expected.nextInstanceLine` is `null` for a non-recurring task (no `🔁` field at all);
+every fixture specifies it explicitly (never omitted) since both a real string and
+`null` are meaningful expected outcomes here, unlike the "absent key means unchecked"
+convention used elsewhere in this schema.

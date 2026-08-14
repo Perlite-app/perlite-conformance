@@ -67,5 +67,23 @@
       { "op": "addTag", "value": "#done-early" }
     ],
     "expectedSerialized": "- [x] Buy milk #task #done-early"
+  },
+  {
+    "name": "mutation-set-recurrence-inserts-field",
+    "input": "- [ ] Water plants #task 📅 2026-08-13",
+    "mutations": [{ "op": "setRecurrence", "value": "every week" }],
+    "expectedSerialized": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week"
+  },
+  {
+    "name": "mutation-set-recurrence-replaces-existing-value-only",
+    "input": "- [ ] Water plants #task 🔁 every week 📅 2026-08-13",
+    "mutations": [{ "op": "setRecurrence", "value": "every 2 weeks" }],
+    "expectedSerialized": "- [ ] Water plants #task 🔁 every 2 weeks 📅 2026-08-13"
+  },
+  {
+    "name": "mutation-remove-recurrence",
+    "input": "- [ ] Water plants #task 🔁 every week",
+    "mutations": [{ "op": "setRecurrence", "value": null }],
+    "expectedSerialized": "- [ ] Water plants #task"
   }
 ]

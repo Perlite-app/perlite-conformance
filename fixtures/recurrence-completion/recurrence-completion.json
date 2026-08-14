@@ -103,5 +103,14 @@
     "input": "- [ ] Weird task #task 🔁 every month on the 2nd Tuesday",
     "today": "2026-08-15",
     "expectRefusal": true
+  },
+  {
+    "name": "recurrence-completion-already-done-task-does-not-leak-done-date-into-next-instance",
+    "input": "- [x] Water plants #task 🔁 every week ✅ 2026-08-14 📅 2026-08-21",
+    "today": "2026-08-14",
+    "expected": {
+      "completedLine": "- [x] Water plants #task 🔁 every week ✅ 2026-08-14 📅 2026-08-21",
+      "nextInstanceLine": "- [ ] Water plants #task 🔁 every week 📅 2026-08-28"
+    }
   }
 ]

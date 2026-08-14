@@ -105,12 +105,18 @@ decided with file-level context, plus that the document reassembles byte-identic
 
 `expected.tasks` is optional and, when present, is checked positionally against the
 document's parsed tasks in order — each entry may include any subset of `description`,
-`indentDepth`, and `allTags`; only the keys present are checked. Useful for
-nested-subtask fixtures where indentation, not just count, is the point, and for
+`indentDepth`, `allTags`, and `parentHeading`; only the keys present are checked. Useful
+for nested-subtask fixtures where indentation, not just count, is the point, and for
 frontmatter tag inheritance fixtures, where `allTags` (order-independent) is checked
 against each task's *merged* tag set — its own inline tags plus any inherited from
 frontmatter — not `tags` alone. Set `"frontmatterTagInheritance": true` in `config` for
 those.
+
+`parentHeading` is three-way like `config.globalFilter` above: key absent means "don't
+check"; `"parentHeading": null` asserts the task has no preceding heading; a string
+asserts that exact heading text (leading `#`s, surrounding whitespace, and an optional
+closing `##` sequence all stripped). Only ATX headings (`#` through `######`) are
+recognised — setext (`===`/`---` underline) headings are not.
 
 The harness always additionally asserts that reserialising the parsed document equals
 `content` exactly — this is not a separate field because it is true for every fixture in

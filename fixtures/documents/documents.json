@@ -70,5 +70,64 @@
       "taskCount": 1,
       "tasks": [{ "allTags": ["#work"] }]
     }
+  },
+  {
+    "name": "document-task-under-heading-has-parent-heading",
+    "content": "# Groceries\n- [ ] Buy milk #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": "Groceries" }]
+    }
+  },
+  {
+    "name": "document-task-before-any-heading-has-no-parent-heading",
+    "content": "- [ ] Early task #task\n# Later heading\n- [ ] Late task #task\n",
+    "expected": {
+      "taskCount": 2,
+      "tasks": [
+        { "parentHeading": null },
+        { "parentHeading": "Later heading" }
+      ]
+    }
+  },
+  {
+    "name": "document-nested-headings-nearest-one-wins",
+    "content": "# Outer\n## Inner\n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": "Inner" }]
+    }
+  },
+  {
+    "name": "document-heading-inside-fence-is-not-a-heading",
+    "content": "```\n# Not a heading\n```\n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": null }]
+    }
+  },
+  {
+    "name": "document-heading-with-closing-hash-sequence",
+    "content": "## Heading ##\n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": "Heading" }]
+    }
+  },
+  {
+    "name": "document-heading-trailing-whitespace-is-trimmed",
+    "content": "# Heading with trailing spaces   \n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": "Heading with trailing spaces" }]
+    }
+  },
+  {
+    "name": "document-seven-hashes-is-not-a-heading",
+    "content": "####### Not a heading, too many hashes\n- [ ] Task #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": null }]
+    }
   }
 ]

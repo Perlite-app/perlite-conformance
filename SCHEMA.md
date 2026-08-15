@@ -76,6 +76,8 @@ Rules:
 - Date fields (`due`, `scheduled`, `start`, `created`, `done`, `cancelled`) are either an
   ISO `YYYY-MM-DD` string (must parse as `.valid`), or `"invalid:<raw text>"` (must parse
   as `.invalid(raw: "<raw text>")`) for malformed-date fixtures.
+- `reminder` (chunk 22, the `⏰` field) follows the same convention, plus an optional
+  time: `"YYYY-MM-DD"`, `"YYYY-MM-DD HH:mm"`, or `"invalid:<raw text>"`.
 - `status.kind` is one of `todo`, `done`, `cancelled`, `custom`.
 - `priority` is one of `highest`, `high`, `medium`, `normal`, `low`, `lowest`.
 - `links[]` entries are `{"target": "...", "alias": "..." | null}`.
@@ -146,6 +148,7 @@ Supported `op` values and their `value` shape:
 |---|---|
 | `setStatus` | single-character string, e.g. `"x"` |
 | `setDue` / `setScheduled` / `setStart` | `YYYY-MM-DD` string, or `null` to remove the field |
+| `setReminder` | `YYYY-MM-DD` or `YYYY-MM-DD HH:mm` string, or `null` to remove the field |
 | `setPriority` | one of `highest`/`high`/`medium`/`normal`/`low`/`lowest` |
 | `setDescription` | replacement description text |
 | `addTag` | tag including `#`, e.g. `"#errands"` |

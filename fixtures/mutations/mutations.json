@@ -85,5 +85,23 @@
     "input": "- [ ] Water plants #task 🔁 every week",
     "mutations": [{ "op": "setRecurrence", "value": null }],
     "expectedSerialized": "- [ ] Water plants #task"
+  },
+  {
+    "name": "mutation-set-reminder-inserts-field-with-time",
+    "input": "- [ ] Standup #task",
+    "mutations": [{ "op": "setReminder", "value": "2026-08-19 20:15" }],
+    "expectedSerialized": "- [ ] Standup #task ⏰ 2026-08-19 20:15"
+  },
+  {
+    "name": "mutation-set-reminder-replaces-existing-value-only",
+    "input": "- [ ] Standup #task ⏰ 2026-08-19 20:15 🔺",
+    "mutations": [{ "op": "setReminder", "value": "2026-08-20 09:00" }],
+    "expectedSerialized": "- [ ] Standup #task ⏰ 2026-08-20 09:00 🔺"
+  },
+  {
+    "name": "mutation-remove-reminder",
+    "input": "- [ ] Standup #task ⏰ 2026-08-19 20:15",
+    "mutations": [{ "op": "setReminder", "value": null }],
+    "expectedSerialized": "- [ ] Standup #task"
   }
 ]

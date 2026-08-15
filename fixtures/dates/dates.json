@@ -67,6 +67,36 @@
     "serialized": "- [x] Buy milk #task ➕ 2026-08-01 🛫 2026-08-10 ⏳ 2026-08-12 📅 2026-08-13 ✅ 2026-08-13"
   },
   {
+    "name": "date-reminder-with-time",
+    "input": "- [ ] Standup #task 📅 2026-08-19 ⏰ 2026-08-19 20:15",
+    "expected": { "isTask": true, "due": "2026-08-19", "reminder": "2026-08-19 20:15", "description": "Standup" },
+    "serialized": "- [ ] Standup #task 📅 2026-08-19 ⏰ 2026-08-19 20:15"
+  },
+  {
+    "name": "date-reminder-bare-date-no-time",
+    "input": "- [ ] Standup #task ⏰ 2026-08-19",
+    "expected": { "isTask": true, "reminder": "2026-08-19" },
+    "serialized": "- [ ] Standup #task ⏰ 2026-08-19"
+  },
+  {
+    "name": "date-reminder-vs16-variant",
+    "input": "- [ ] Standup #task ⏰️ 2026-08-19 20:15",
+    "expected": { "isTask": true, "reminder": "2026-08-19 20:15" },
+    "serialized": "- [ ] Standup #task ⏰️ 2026-08-19 20:15"
+  },
+  {
+    "name": "date-reminder-malformed-out-of-range-time",
+    "input": "- [ ] Standup #task ⏰ 2026-08-19 25:99",
+    "expected": { "isTask": true, "reminder": "invalid:2026-08-19 25:99" },
+    "serialized": "- [ ] Standup #task ⏰ 2026-08-19 25:99"
+  },
+  {
+    "name": "date-reminder-malformed-not-a-date",
+    "input": "- [ ] Standup #task ⏰ not-a-date",
+    "expected": { "isTask": true, "reminder": "invalid:not-a-date" },
+    "serialized": "- [ ] Standup #task ⏰ not-a-date"
+  },
+  {
     "name": "date-due-malformed-out-of-range",
     "input": "- [ ] Buy milk #task 📅 2026-13-45",
     "expected": { "isTask": true, "due": "invalid:2026-13-45" },

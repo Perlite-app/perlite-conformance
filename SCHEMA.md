@@ -1,14 +1,18 @@
 # Conformance corpus schema
 
 Language-agnostic contract between every implementation of the Obsidian Tasks parser
-(Swift today; TypeScript for the Obsidian plugin and possibly Kotlin for Android are
-future implementations per the roadmap). Each implementation ships a thin harness that
-loads these fixtures and asserts against them. A parser change is not complete until the
-corpus is updated and every implementation passes.
+(Swift today; TypeScript for the Obsidian plugin, Kotlin for Android, and a Windows
+implementation are planned per the roadmap). Each implementation ships a thin harness
+that loads these fixtures and asserts against them. A parser change is not complete
+until the corpus is updated and every implementation passes.
 
 Fixtures live under `fixtures/<category>/`, one JSON file per category holding an array
-of fixture objects. The category directory name determines which of the four fixture
-shapes below the file uses:
+of fixture objects. A fixture's fully-qualified id — the identifier every tool and every
+implementation's harness uses, since `name` alone is only unique within its own
+category — is `<category>/<name>`.
+
+The category directory name determines which of the four fixture shapes below the file
+uses:
 
 - `documents/` → **document fixtures**
 - `mutations/` → **mutation fixtures**
@@ -153,15 +157,17 @@ Supported `op` values and their `value` shape:
 | `setDescription` | replacement description text |
 | `addTag` | tag including `#`, e.g. `"#errands"` |
 | `removeTag` | tag including `#` |
+| `setRecurrence` | free-text recurrence rule (e.g. `"every week"`), or `null` to remove the field — the parser does not validate this text at write time; see the `dates`/`recurrence` line-fixture categories for what makes a rule *parseable* |
 
 Mutations apply in order, each to the result of the previous one.
 
 ## Recurrence completion fixtures
 
-Exercises `RecurrenceEngine.complete` (`Sources/PerliteCore/Recurrence/`): completing a
-task, on a given date, either produces a completed line plus an optional next-instance
-line, or must refuse entirely (§6.3 — an unparseable recurrence rule is never allowed to
-complete-and-drop the task).
+Exercises completing a recurring task: on a given date, completing a task either
+produces a completed line plus an optional next-instance line, or must refuse entirely
+(an unparseable recurrence rule is never allowed to complete-and-drop the task). This is
+describing behaviour every implementation's recurrence engine must reproduce — it is not
+tied to any one implementation's file layout.
 
 ```json
 {
@@ -177,9 +183,19 @@ complete-and-drop the task).
 ```
 
 For a refusal case, replace `expected` with `"expectRefusal": true` — no line fields are
-checked, only that `RecurrenceEngine.complete` throws.
+checked, only that completion refuses (throws, returns an error, or whatever the
+implementation's own error-handling idiom is) rather than completing and silently
+dropping the task.
 
 `expected.nextInstanceLine` is `null` for a non-recurring task (no `🔁` field at all);
 every fixture specifies it explicitly (never omitted) since both a real string and
 `null` are meaningful expected outcomes here, unlike the "absent key means unchecked"
 convention used elsewhere in this schema.
+
+## Keeping this contract enforceable, not just documented
+
+The rules above are prose; `index.json` and `tools/` make them mechanically checkable —
+see `REPORT.md` for the generated fixture index, the schema validator, the
+cross-implementation report format, and the diff tool that answers "do two
+implementations actually agree?" directly instead of by reading two test logs side by
+side. Run `node tools/validate.mjs` after editing any fixture.

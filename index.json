@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "totalFixtures": 119,
+  "categories": [
+    {
+      "name": "dates",
+      "shape": "line",
+      "file": "dates.json",
+      "count": 18,
+      "ids": [
+        "dates/date-due",
+        "dates/date-due-alternate-marker-calendar",
+        "dates/date-due-alternate-marker-spiral",
+        "dates/date-scheduled",
+        "dates/date-scheduled-alternate-marker-hourglass",
+        "dates/date-start",
+        "dates/date-created",
+        "dates/date-done",
+        "dates/date-cancelled",
+        "dates/date-all-fields-combined",
+        "dates/date-reminder-with-time",
+        "dates/date-reminder-bare-date-no-time",
+        "dates/date-reminder-vs16-variant",
+        "dates/date-reminder-malformed-out-of-range-time",
+        "dates/date-reminder-malformed-not-a-date",
+        "dates/date-due-malformed-out-of-range",
+        "dates/date-due-malformed-not-a-date",
+        "dates/date-due-malformed-wrong-shape"
+      ]
+    },
+    {
+      "name": "dependencies",
+      "shape": "line",
+      "file": "dependencies.json",
+      "count": 4,
+      "ids": [
+        "dependencies/dependency-id",
+        "dependencies/dependency-blocked-by-single",
+        "dependencies/dependency-blocked-by-multiple",
+        "dependencies/dependency-id-and-blocked-by-combined"
+      ]
+    },
+    {
+      "name": "documents",
+      "shape": "document",
+      "file": "documents.json",
+      "count": 18,
+      "ids": [
+        "documents/document-backtick-fence-excludes-tasks",
+        "documents/document-tilde-fence-excludes-tasks",
+        "documents/document-frontmatter-inline-array-tags",
+        "documents/document-frontmatter-list-tags",
+        "documents/document-mixed-line-endings",
+        "documents/document-missing-trailing-newline",
+        "documents/document-nested-subtasks",
+        "documents/document-unterminated-frontmatter-treated-as-plain-text",
+        "documents/document-frontmatter-tag-inheritance-off-by-default",
+        "documents/document-frontmatter-tag-inheritance-merges-when-enabled",
+        "documents/document-frontmatter-tag-inheritance-dedupes-case-insensitively",
+        "documents/document-task-under-heading-has-parent-heading",
+        "documents/document-task-before-any-heading-has-no-parent-heading",
+        "documents/document-nested-headings-nearest-one-wins",
+        "documents/document-heading-inside-fence-is-not-a-heading",
+        "documents/document-heading-with-closing-hash-sequence",
+        "documents/document-heading-trailing-whitespace-is-trimmed",
+        "documents/document-seven-hashes-is-not-a-heading"
+      ]
+    },
+    {
+      "name": "links",
+      "shape": "line",
+      "file": "links.json",
+      "count": 5,
+      "ids": [
+        "links/link-wikilink-no-alias",
+        "links/link-wikilink-with-alias",
+        "links/link-wikilink-with-heading",
+        "links/link-markdown-link-fragment-not-parsed-as-tag",
+        "links/link-hash-inside-inline-code-not-a-tag"
+      ]
+    },
+    {
+      "name": "mutations",
+      "shape": "mutation",
+      "file": "mutations.json",
+      "count": 17,
+      "ids": [
+        "mutations/mutation-set-due-inserts-field",
+        "mutations/mutation-set-due-replaces-existing-value-only",
+        "mutations/mutation-remove-due",
+        "mutations/mutation-set-priority-inserts-marker",
+        "mutations/mutation-set-priority-normal-removes-leading-marker-without-double-space",
+        "mutations/mutation-add-tag",
+        "mutations/mutation-add-tag-is-case-insensitive-dedupe-noop",
+        "mutations/mutation-remove-tag",
+        "mutations/mutation-set-status-complete",
+        "mutations/mutation-set-description-replaces-leading-text-only",
+        "mutations/mutation-sequential-status-then-tag",
+        "mutations/mutation-set-recurrence-inserts-field",
+        "mutations/mutation-set-recurrence-replaces-existing-value-only",
+        "mutations/mutation-remove-recurrence",
+        "mutations/mutation-set-reminder-inserts-field-with-time",
+        "mutations/mutation-set-reminder-replaces-existing-value-only",
+        "mutations/mutation-remove-reminder"
+      ]
+    },
+    {
+      "name": "preservation",
+      "shape": "line",
+      "file": "preservation.json",
+      "count": 9,
+      "ids": [
+        "preservation/preservation-unknown-emoji-stays-in-description",
+        "preservation/preservation-field-order-priority-before-due",
+        "preservation/preservation-field-order-due-before-priority",
+        "preservation/preservation-trailing-whitespace",
+        "preservation/preservation-tab-indentation",
+        "preservation/preservation-trailing-block-reference",
+        "preservation/preservation-unicode-in-title",
+        "preservation/preservation-body-is-only-a-block-reference",
+        "preservation/preservation-marker-with-no-usable-value-left-literal"
+      ]
+    },
+    {
+      "name": "priority",
+      "shape": "line",
+      "file": "priority.json",
+      "count": 7,
+      "ids": [
+        "priority/priority-highest",
+        "priority/priority-high",
+        "priority/priority-medium",
+        "priority/priority-low",
+        "priority/priority-lowest",
+        "priority/priority-absent-is-normal",
+        "priority/priority-leading-in-body"
+      ]
+    },
+    {
+      "name": "recurrence",
+      "shape": "line",
+      "file": "recurrence.json",
+      "count": 8,
+      "ids": [
+        "recurrence/recurrence-daily",
+        "recurrence/recurrence-weekly",
+        "recurrence/recurrence-interval",
+        "recurrence/recurrence-weekday-constraint",
+        "recurrence/recurrence-when-done-variant",
+        "recurrence/recurrence-monthly",
+        "recurrence/recurrence-yearly",
+        "recurrence/recurrence-stops-before-following-date-field"
+      ]
+    },
+    {
+      "name": "recurrence-completion",
+      "shape": "recurrence-completion",
+      "file": "recurrence-completion.json",
+      "count": 13,
+      "ids": [
+        "recurrence-completion/recurrence-completion-daily-with-interval",
+        "recurrence-completion/recurrence-completion-weekly-plain",
+        "recurrence-completion/recurrence-completion-weekly-with-weekday-constraint",
+        "recurrence-completion/recurrence-completion-monthly-clamps-to-shorter-month",
+        "recurrence-completion/recurrence-completion-yearly-clamps-leap-day",
+        "recurrence-completion/recurrence-completion-when-done-shifts-from-original-date",
+        "recurrence-completion/recurrence-completion-no-date-fields-invents-due",
+        "recurrence-completion/recurrence-completion-preserves-scheduled-offset-from-due",
+        "recurrence-completion/recurrence-completion-created-date-set-to-today-not-shifted",
+        "recurrence-completion/recurrence-completion-non-recurring-task-has-no-next-instance",
+        "recurrence-completion/recurrence-completion-custom-status-resets-to-todo-on-next-instance",
+        "recurrence-completion/recurrence-completion-unparseable-rule-refuses",
+        "recurrence-completion/recurrence-completion-already-done-task-does-not-leak-done-date-into-next-instance"
+      ]
+    },
+    {
+      "name": "status",
+      "shape": "line",
+      "file": "status.json",
+      "count": 13,
+      "ids": [
+        "status/status-todo",
+        "status/status-done-lowercase",
+        "status/status-done-uppercase",
+        "status/status-cancelled",
+        "status/status-custom-in-progress",
+        "status/status-custom-on-hold",
+        "status/status-custom-planned",
+        "status/status-custom-arbitrary-character",
+        "status/status-asterisk-list-marker",
+        "status/status-plus-list-marker",
+        "status/status-ordered-list-marker",
+        "status/status-not-a-checklist-item",
+        "status/status-excluded-by-global-filter"
+      ]
+    },
+    {
+      "name": "tags",
+      "shape": "line",
+      "file": "tags.json",
+      "count": 7,
+      "ids": [
+        "tags/tag-single",
+        "tags/tag-nested",
+        "tags/tag-multiple",
+        "tags/tag-emoji",
+        "tags/tag-global-filter-excluded-from-tags-and-description",
+        "tags/tag-stops-at-trailing-punctuation",
+        "tags/tag-no-global-filter-configured"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "name": "insertion-under-heading-after-last-task",
+    "content": "# Groceries\n- [ ] Eggs #task\n\n# Home\n- [ ] Fix tap #task\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\n- [ ] Eggs #task\n- [ ] Milk #task\n\n# Home\n- [ ] Fix tap #task\n"
+  },
+  {
+    "name": "insertion-under-heading-stops-at-a-subheading",
+    "content": "# Groceries\n- [ ] Eggs #task\n## Later\n- [ ] Flour #task\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\n- [ ] Eggs #task\n- [ ] Milk #task\n## Later\n- [ ] Flour #task\n"
+  },
+  {
+    "name": "insertion-under-heading-with-an-empty-section",
+    "content": "## Inbox\n## Done\n- [x] Old #task\n",
+    "heading": { "text": "Inbox", "level": 2, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "## Inbox\n- [ ] Milk #task\n## Done\n- [x] Old #task\n"
+  },
+  {
+    "name": "insertion-under-heading-followed-only-by-blank-lines",
+    "content": "## Inbox\n\n\n## Done\n",
+    "heading": { "text": "Inbox", "level": 2, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "## Inbox\n- [ ] Milk #task\n\n\n## Done\n"
+  },
+  {
+    "name": "insertion-under-heading-after-prose-before-trailing-blanks",
+    "content": "## Inbox\nSome notes about the week.\n\n\n## Done\n",
+    "heading": { "text": "Inbox", "level": 2, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "## Inbox\nSome notes about the week.\n- [ ] Milk #task\n\n\n## Done\n"
+  },
+  {
+    "name": "insertion-under-heading-past-a-hash-line-inside-a-fence",
+    "content": "## Scripts\n```sh\n# not a heading\n```\n- [ ] Run backup #task\n## Other\n",
+    "heading": { "text": "Scripts", "level": 2, "line": 0 },
+    "insert": "- [ ] Rotate logs #task",
+    "expectedContent": "## Scripts\n```sh\n# not a heading\n```\n- [ ] Run backup #task\n- [ ] Rotate logs #task\n## Other\n"
+  },
+  {
+    "name": "insertion-under-heading-before-an-unclosed-fence",
+    "content": "## Scripts\n- [ ] Run backup #task\n```sh\n# setup\nmake all\n",
+    "heading": { "text": "Scripts", "level": 2, "line": 0 },
+    "insert": "- [ ] Rotate logs #task",
+    "expectedContent": "## Scripts\n- [ ] Run backup #task\n- [ ] Rotate logs #task\n```sh\n# setup\nmake all\n"
+  },
+  {
+    "name": "insertion-under-duplicate-heading-nearest-line-wins",
+    "content": "# Mon\n## Notes\n- [ ] a #task\n# Tue\n## Notes\n- [ ] b #task\n",
+    "heading": { "text": "Notes", "level": 2, "line": 4 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Mon\n## Notes\n- [ ] a #task\n# Tue\n## Notes\n- [ ] b #task\n- [ ] Milk #task\n"
+  },
+  {
+    "name": "insertion-under-heading-that-moved",
+    "content": "Intro\nMore intro\n# Groceries\n- [ ] Eggs #task\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "Intro\nMore intro\n# Groceries\n- [ ] Eggs #task\n- [ ] Milk #task\n"
+  },
+  {
+    "name": "insertion-under-heading-with-closing-hashes",
+    "content": "## Inbox ##\n- [ ] a #task\n",
+    "heading": { "text": "Inbox", "level": 2, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "## Inbox ##\n- [ ] a #task\n- [ ] Milk #task\n"
+  },
+  {
+    "name": "insertion-under-heading-after-a-subtask",
+    "content": "# Groceries\n- [ ] Baking #task\n    - [ ] Flour #task\n\n# Home\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\n- [ ] Baking #task\n    - [ ] Flour #task\n- [ ] Milk #task\n\n# Home\n"
+  },
+  {
+    "name": "insertion-under-heading-keeps-crlf",
+    "content": "# Groceries\r\n- [ ] Eggs #task\r\n\r\n# Home\r\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\r\n- [ ] Eggs #task\r\n- [ ] Milk #task\r\n\r\n# Home\r\n"
+  },
+  {
+    "name": "insertion-under-heading-at-end-of-file-without-newline",
+    "content": "# Groceries\n- [ ] Eggs #task",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\n- [ ] Eggs #task\n- [ ] Milk #task"
+  },
+  {
+    "name": "insertion-heading-level-must-match",
+    "content": "### Inbox\n- [ ] a #task\n",
+    "heading": { "text": "Inbox", "level": 2, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectNotFound": true
+  },
+  {
+    "name": "insertion-heading-not-in-note",
+    "content": "# Home\n- [ ] a #task\n",
+    "heading": { "text": "Groceries", "level": 1, "line": 0 },
+    "insert": "- [ ] Milk #task",
+    "expectNotFound": true
+  },
+  {
+    "name": "insertion-frontmatter-comment-is-not-a-heading",
+    "content": "---\ntitle: x\n# not a heading\n---\n# Real\n",
+    "heading": { "text": "not a heading", "level": 1, "line": 2 },
+    "insert": "- [ ] Milk #task",
+    "expectNotFound": true
+  },
+  {
+    "name": "insertion-append-at-end",
+    "content": "# Groceries\n- [ ] Eggs #task\n\n",
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "# Groceries\n- [ ] Eggs #task\n\n- [ ] Milk #task\n"
+  },
+  {
+    "name": "insertion-append-to-file-without-newline",
+    "content": "- [ ] Eggs #task",
+    "insert": "- [ ] Milk #task",
+    "expectedContent": "- [ ] Eggs #task\n- [ ] Milk #task"
+  }
+]

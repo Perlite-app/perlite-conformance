@@ -14,6 +14,7 @@ const SHAPE_BY_DIRECTORY = {
   documents: "document",
   mutations: "mutation",
   "recurrence-completion": "recurrence-completion",
+  insertions: "insertion",
 };
 const DEFAULT_SHAPE = "line";
 
@@ -228,11 +229,42 @@ function validateRecurrenceCompletionFixture(fixture, errors, where) {
   }
 }
 
+function validateInsertionFixture(fixture, errors, where) {
+  for (const key of unknownKeys(fixture, ["name", "content", "config", "heading", "insert", "expectedContent", "expectNotFound"])) {
+    errors.push(`${where}: unknown top-level key "${key}"`);
+  }
+  validateConfig(fixture.config, errors, where);
+  if (typeof fixture.content !== "string" || fixture.content === "") {
+    errors.push(`${where}: content must be a non-empty string`);
+  }
+  if (typeof fixture.insert !== "string") {
+    errors.push(`${where}: insert is required`);
+  }
+  if (fixture.heading !== undefined) {
+    const heading = fixture.heading;
+    for (const key of unknownKeys(heading, ["text", "level", "line"])) {
+      errors.push(`${where}: heading has unknown key "${key}"`);
+    }
+    if (typeof heading?.text !== "string") errors.push(`${where}: heading.text must be a string`);
+    if (!Number.isInteger(heading?.level) || heading.level < 1 || heading.level > 6) errors.push(`${where}: heading.level must be 1-6`);
+    if (!Number.isInteger(heading?.line) || heading.line < 0) errors.push(`${where}: heading.line must be a 0-based line number`);
+  }
+  const hasExpected = typeof fixture.expectedContent === "string";
+  const hasNotFound = fixture.expectNotFound === true;
+  if (hasExpected === hasNotFound) {
+    errors.push(`${where}: exactly one of "expectedContent" or "expectNotFound: true" must be present`);
+  }
+  if (hasNotFound && fixture.heading === undefined) {
+    errors.push(`${where}: expectNotFound needs a heading — appending at the end always succeeds`);
+  }
+}
+
 const VALIDATORS_BY_SHAPE = {
   line: validateLineFixture,
   document: validateDocumentFixture,
   mutation: validateMutationFixture,
   "recurrence-completion": validateRecurrenceCompletionFixture,
+  insertion: validateInsertionFixture,
 };
 
 /** Validates one category's fixture array. Returns a flat list of human-readable error

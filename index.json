@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "totalFixtures": 134,
+  "totalFixtures": 152,
   "categories": [
     {
       "name": "dates",
@@ -68,6 +68,32 @@
         "documents/document-seven-hashes-is-not-a-heading",
         "documents/document-frontmatter-tag-line-with-stray-carriage-return",
         "documents/document-heading-paragraph-separator-trimmed"
+      ]
+    },
+    {
+      "name": "insertions",
+      "shape": "insertion",
+      "file": "insertions.json",
+      "count": 18,
+      "ids": [
+        "insertions/insertion-under-heading-after-last-task",
+        "insertions/insertion-under-heading-stops-at-a-subheading",
+        "insertions/insertion-under-heading-with-an-empty-section",
+        "insertions/insertion-under-heading-followed-only-by-blank-lines",
+        "insertions/insertion-under-heading-after-prose-before-trailing-blanks",
+        "insertions/insertion-under-heading-past-a-hash-line-inside-a-fence",
+        "insertions/insertion-under-heading-before-an-unclosed-fence",
+        "insertions/insertion-under-duplicate-heading-nearest-line-wins",
+        "insertions/insertion-under-heading-that-moved",
+        "insertions/insertion-under-heading-with-closing-hashes",
+        "insertions/insertion-under-heading-after-a-subtask",
+        "insertions/insertion-under-heading-keeps-crlf",
+        "insertions/insertion-under-heading-at-end-of-file-without-newline",
+        "insertions/insertion-heading-level-must-match",
+        "insertions/insertion-heading-not-in-note",
+        "insertions/insertion-frontmatter-comment-is-not-a-heading",
+        "insertions/insertion-append-at-end",
+        "insertions/insertion-append-to-file-without-newline"
       ]
     },
     {

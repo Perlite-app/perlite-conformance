@@ -11,12 +11,13 @@ of fixture objects. A fixture's fully-qualified id — the identifier every tool
 implementation's harness uses, since `name` alone is only unique within its own
 category — is `<category>/<name>`.
 
-The category directory name determines which of the four fixture shapes below the file
+The category directory name determines which of the five fixture shapes below the file
 uses:
 
 - `documents/` → **document fixtures**
 - `mutations/` → **mutation fixtures**
 - `recurrence-completion/` → **recurrence completion fixtures**
+- `insertions/` → **insertion fixtures**
 - everything else (`status/`, `dates/`, `priority/`, `tags/`, `links/`, `recurrence/`,
   `dependencies/`, `preservation/`, `whitespace/`) → **line fixtures**
 
@@ -208,6 +209,37 @@ dropping the task.
 every fixture specifies it explicitly (never omitted) since both a real string and
 `null` are meaningful expected outcomes here, unlike the "absent key means unchecked"
 convention used elsewhere in this schema.
+
+## Insertion fixtures
+
+Adding a new task line to a note: at the end, or under a heading. A file's content, the
+line to add, and the whole file afterwards.
+
+```json
+{
+  "name": "insertion-under-heading-after-last-task",
+  "content": "# Groceries\n- [ ] Eggs #task\n\n# Home\n",
+  "heading": { "text": "Groceries", "level": 1, "line": 0 },
+  "insert": "- [ ] Milk #task",
+  "expectedContent": "# Groceries\n- [ ] Eggs #task\n- [ ] Milk #task\n\n# Home\n"
+}
+```
+
+- Without `heading`, the line is appended after the file's last line.
+- With `heading`, the line goes after the last non-blank line of that heading's own
+  section — up to the next heading of **any** level, so the new task's `parentHeading`
+  is this heading and not a subheading's — or straight after the heading when the
+  section is empty. A code fence that opens in the section and never closes ends the
+  section where it opens.
+- Headings are the ones `parentHeading` is taken from (ATX, outside frontmatter and
+  fences), matched by `level` and `text` (stripped the same way). When several match,
+  the one nearest `line` (0-based) wins, so a heading remembered from an earlier read
+  still resolves after lines above it have moved.
+- `"expectNotFound": true` replaces `expectedContent` when no heading matches; the
+  implementation must refuse rather than put the line anywhere else.
+- Line endings follow the existing file: the new line takes the anchor line's ending,
+  and a file without a final newline still ends without one.
+- `content` is never empty — writing a new file has no anchor line and isn't an insert.
 
 ## Keeping this contract enforceable, not just documented
 

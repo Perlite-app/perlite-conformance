@@ -1,7 +1,7 @@
 // Differential fuzzing, step 1: write a seeded batch of random cases as JSON Lines.
 //
 //   node tools/differential/generate.mjs [--seed N] [--lines N] [--documents N]
-//        [--mutations N] [--completions N] > cases.jsonl
+//        [--mutations N] [--completions N] [--insertions N] > cases.jsonl
 //
 // Each implementation runs the same file through its own parser (see DIFFERENTIAL.md for
 // the per-case input and output shapes) and `compare.mjs` reports every case where the
@@ -19,6 +19,7 @@ const counts = {
   document: Number(args.documents ?? 2000),
   mutation: Number(args.mutations ?? 5000),
   completion: Number(args.completions ?? 5000),
+  insertion: Number(args.insertions ?? 5000),
 };
 
 // SplitMix64 — the same generator as PerliteCore's RoundTripFuzzTests, so a seed means the
@@ -192,7 +193,25 @@ function completionCase() {
   return { kind: "completion", input, config: config({ wellFormed: true }), today: validDate() };
 }
 
-const makers = { line: lineCase, document: documentCase, mutation: mutationCase, completion: completionCase };
+function insertionCase() {
+  const { content, config: documentConfig } = documentCase();
+  // Mostly a heading-looking line from this very document (rough on purpose — the
+  // implementations decide what really is a heading), sometimes with a stale line number.
+  const lines = content.split(/\r?\n/);
+  const candidates = lines.map((text, line) => ({ text, line })).filter(({ text }) => /^\s{0,3}#{1,6}(\s|$)/.test(text));
+  let heading;
+  if (candidates.length > 0 && chance(0.75)) {
+    const { text, line } = pick(candidates);
+    const trimmed = text.trim();
+    const level = /^#*/.exec(trimmed)[0].length;
+    heading = { text: trimmed.slice(level).trim().replace(/\s+#+$/, "").trim(), level, line: Math.max(0, line + pick([0, 0, 0, -2, 3])) };
+  } else if (chance(0.8)) {
+    heading = { text: pick(["", "Heading", "Heading ##", "Indented", "Seven", "📅 2026-01-01", "Heading #task", "NoSpace", "Groceries"]), level: int(1, 3), line: int(0, 20) };
+  }
+  return { kind: "insertion", content: content === "" ? "x" : content, config: documentConfig, heading, insert: taskLine({ wellFormed: true }) };
+}
+
+const makers = { line: lineCase, document: documentCase, mutation: mutationCase, completion: completionCase, insertion: insertionCase };
 let n = 0;
 for (const [kind, count] of Object.entries(counts)) {
   for (let i = 0; i < count; i++) {

@@ -21,8 +21,8 @@ prints the shortest few examples of each group, so one bug reads as one group. I
 
 `generate.mjs` writes one JSON object per line. The same seed always produces the same
 file (SplitMix64, as PerliteCore's own round-trip fuzz test uses). Defaults: 20,000
-lines, 2,000 documents, 5,000 mutations, 5,000 completions; `--lines`, `--documents`,
-`--mutations`, `--completions` change them.
+lines, 2,000 documents, 5,000 mutations, 5,000 completions, 5,000 insertions; `--lines`,
+`--documents`, `--mutations`, `--completions`, `--insertions` change them.
 
 Every case has an `id`, a `kind` and a `config` (the shared `config` object from
 `SCHEMA.md`, same absent/null rules). By kind:
@@ -33,6 +33,7 @@ Every case has an `id`, a `kind` and a `config` (the shared `config` object from
 | `document` | `content` — a whole file: frontmatter, headings, fences, tasks, with `\n`, `\r\n`, mixed or lone-`\r` line endings |
 | `mutation` | `input`, `mutations` — the ops from `SCHEMA.md`, applied in order |
 | `completion` | `input`, `today` — always a real date |
+| `insertion` | `content`, `insert`, and usually `heading` (`text`, `level`, `line`) — mostly a heading-looking line from that same document, sometimes with a stale line number; without it, append at the end |
 
 The generator mixes well-formed fields with malformed ones and junk: every date emoji
 (with and without U+FE0F), invalid and signed dates, reminder times, recurrence rules
@@ -55,15 +56,18 @@ may not crash on the same input. Dates use the `SCHEMA.md` convention (`"YYYY-MM
 - **document** — `taskCount`, `frontmatterTags`, `roundTrips` (reserialising gives back
   `content` exactly) and `tasks[]`: `line` (0-based), `raw`, `description`,
   `indentDepth`, `allTags` (sorted by UTF-16 code unit, as JavaScript's `sort()` does)
-  and `parentHeading`.
+  and `parentHeading`; and `headings[]`: `line`, `level`, `text`.
 - **mutation** — `{"ok": true, "serialized": "..."}`, or `{"ok": false, "failedAt": n}`
   where `n` is the failing mutation's index, `-1` when the input isn't a task.
 - **completion** — `{"completedLine", "nextInstanceLine"}`, `{"refused": true}`, or
   `{"isTask": false}`.
+- **insertion** — `{"content": "..."}`, the whole file after the insert, or
+  `{"found": false}`.
 
 Agreement doesn't prove both are right — a bug both share stays invisible. So also
 check the properties that must always hold: every parsed line's `serialized` equals its
-input, and every document `roundTrips`.
+input, every document `roundTrips`, and a line inserted under a heading parses back (when
+it's a task under that config) with that heading as its `parentHeading`.
 
 ## What it has found
 

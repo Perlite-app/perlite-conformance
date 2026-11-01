@@ -1,7 +1,27 @@
 {
   "schemaVersion": 1,
-  "totalFixtures": 152,
+  "totalFixtures": 164,
   "categories": [
+    {
+      "name": "completion-writes",
+      "shape": "completion-write",
+      "file": "completion-writes.json",
+      "count": 12,
+      "ids": [
+        "completion-writes/completion-write-next-instance-above-by-default",
+        "completion-writes/completion-write-next-instance-above",
+        "completion-writes/completion-write-next-instance-below",
+        "completion-writes/completion-write-above-on-the-first-line",
+        "completion-writes/completion-write-above-on-a-last-line-without-newline",
+        "completion-writes/completion-write-below-on-a-last-line-without-newline",
+        "completion-writes/completion-write-above-on-the-only-line-without-newline",
+        "completion-writes/completion-write-above-keeps-crlf",
+        "completion-writes/completion-write-above-on-a-crlf-last-line-without-newline",
+        "completion-writes/completion-write-above-keeps-the-indent",
+        "completion-writes/completion-write-completes-the-duplicate-at-line",
+        "completion-writes/completion-write-non-recurring-replaces-only-its-line"
+      ]
+    },
     {
       "name": "dates",
       "shape": "line",

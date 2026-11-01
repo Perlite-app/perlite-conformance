@@ -11,13 +11,14 @@ of fixture objects. A fixture's fully-qualified id — the identifier every tool
 implementation's harness uses, since `name` alone is only unique within its own
 category — is `<category>/<name>`.
 
-The category directory name determines which of the five fixture shapes below the file
+The category directory name determines which of the six fixture shapes below the file
 uses:
 
 - `documents/` → **document fixtures**
 - `mutations/` → **mutation fixtures**
 - `recurrence-completion/` → **recurrence completion fixtures**
 - `insertions/` → **insertion fixtures**
+- `completion-writes/` → **completion write fixtures**
 - everything else (`status/`, `dates/`, `priority/`, `tags/`, `links/`, `recurrence/`,
   `dependencies/`, `preservation/`, `whitespace/`) → **line fixtures**
 
@@ -240,6 +241,33 @@ line to add, and the whole file afterwards.
 - Line endings follow the existing file: the new line takes the anchor line's ending,
   and a file without a final newline still ends without one.
 - `content` is never empty — writing a new file has no anchor line and isn't an insert.
+
+## Completion write fixtures
+
+Completing a task inside a note: which lines change, and where a recurring task's next
+instance goes. A file's content, the 0-based `line` of the task to complete, and the
+whole file afterwards.
+
+```json
+{
+  "name": "completion-write-next-instance-above-by-default",
+  "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n",
+  "line": 1,
+  "today": "2026-08-15",
+  "expectedContent": "# Home\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n"
+}
+```
+
+- The task is completed exactly as in the recurrence completion fixtures; a completion
+  that would be refused belongs there, not here.
+- A task that doesn't recur is replaced by its completed line and nothing else changes.
+- A recurring task's next instance goes on its own line directly **above** the completed
+  task — the Tasks plugin's default — or directly below it when `"placement": "below"`
+  (Tasks' `recurrenceOnNextLine` setting). `placement` absent means `"above"`.
+- Both lines take the original line's ending, and a file without a final newline still
+  ends without one.
+- When the task's text appears on more than one line, the one at `line` is completed.
+- Undoing the write gives back `content` exactly; every harness checks that too.
 
 ## Keeping this contract enforceable, not just documented
 

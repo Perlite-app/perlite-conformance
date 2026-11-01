@@ -1,0 +1,90 @@
+[
+  {
+    "name": "completion-write-next-instance-above-by-default",
+    "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n- [ ] Fix tap #task\n",
+    "line": 1,
+    "today": "2026-08-15",
+    "expectedContent": "# Home\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n- [ ] Fix tap #task\n"
+  },
+  {
+    "name": "completion-write-next-instance-above",
+    "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n- [ ] Fix tap #task\n",
+    "line": 1,
+    "today": "2026-08-15",
+    "placement": "above",
+    "expectedContent": "# Home\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n- [ ] Fix tap #task\n"
+  },
+  {
+    "name": "completion-write-next-instance-below",
+    "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n- [ ] Fix tap #task\n",
+    "line": 1,
+    "today": "2026-08-15",
+    "placement": "below",
+    "expectedContent": "# Home\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [ ] Fix tap #task\n"
+  },
+  {
+    "name": "completion-write-above-on-the-first-line",
+    "content": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n- [ ] Fix tap #task\n",
+    "line": 0,
+    "today": "2026-08-15",
+    "expectedContent": "- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n- [ ] Fix tap #task\n"
+  },
+  {
+    "name": "completion-write-above-on-a-last-line-without-newline",
+    "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+    "line": 1,
+    "today": "2026-08-15",
+    "expectedContent": "# Home\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15"
+  },
+  {
+    "name": "completion-write-below-on-a-last-line-without-newline",
+    "content": "# Home\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+    "line": 1,
+    "today": "2026-08-15",
+    "placement": "below",
+    "expectedContent": "# Home\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week"
+  },
+  {
+    "name": "completion-write-above-on-the-only-line-without-newline",
+    "content": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+    "line": 0,
+    "today": "2026-08-15",
+    "expectedContent": "- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15"
+  },
+  {
+    "name": "completion-write-above-keeps-crlf",
+    "content": "# Home\r\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\r\n- [ ] Fix tap #task\r\n",
+    "line": 1,
+    "today": "2026-08-15",
+    "expectedContent": "# Home\r\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\r\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\r\n- [ ] Fix tap #task\r\n"
+  },
+  {
+    "name": "completion-write-above-on-a-crlf-last-line-without-newline",
+    "content": "# Home\r\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week",
+    "line": 1,
+    "today": "2026-08-15",
+    "expectedContent": "# Home\r\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\r\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15"
+  },
+  {
+    "name": "completion-write-above-keeps-the-indent",
+    "content": "- [ ] Chores #task\n    - [ ] Water plants #task 📅 2026-08-13 🔁 every week\n",
+    "line": 1,
+    "today": "2026-08-15",
+    "expectedContent": "- [ ] Chores #task\n    - [ ] Water plants #task 📅 2026-08-20 🔁 every week\n    - [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n"
+  },
+  {
+    "name": "completion-write-completes-the-duplicate-at-line",
+    "content": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n# Later\n- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n",
+    "line": 2,
+    "today": "2026-08-15",
+    "expectedContent": "- [ ] Water plants #task 📅 2026-08-13 🔁 every week\n# Later\n- [ ] Water plants #task 📅 2026-08-20 🔁 every week\n- [x] Water plants #task 📅 2026-08-13 🔁 every week ✅ 2026-08-15\n"
+  },
+  {
+    "name": "completion-write-non-recurring-replaces-only-its-line",
+    "content": "- [ ] Milk #task\n- [ ] Eggs #task\n",
+    "line": 0,
+    "today": "2026-08-15",
+    "placement": "below",
+    "expectedContent": "- [x] Milk #task ✅ 2026-08-15\n- [ ] Eggs #task\n"
+  }
+]

@@ -7,8 +7,8 @@ TypeScript, Kotlin, and a Windows implementation planned — ships a thin harnes
 loads the fixtures here and asserts against them, so "does this parser handle field X
 correctly" has one answer instead of one answer per codebase.
 
-- **`SCHEMA.md`** — the fixture format itself: what each of the five fixture shapes
-  (line/document/mutation/recurrence-completion/insertion) requires, and every three-way
+- **`SCHEMA.md`** — the fixture format itself: what each of the six fixture shapes
+  (line/document/mutation/recurrence-completion/insertion/completion-write) requires, and every three-way
   absent/null/value convention the format relies on. Read this first.
 - **`fixtures/<category>/`** — the actual test data, one JSON file per category.
 - **`index.json`** — a generated manifest of every fixture (regenerate with

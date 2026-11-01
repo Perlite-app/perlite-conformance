@@ -15,6 +15,7 @@ const SHAPE_BY_DIRECTORY = {
   mutations: "mutation",
   "recurrence-completion": "recurrence-completion",
   insertions: "insertion",
+  "completion-writes": "completion-write",
 };
 const DEFAULT_SHAPE = "line";
 
@@ -259,12 +260,35 @@ function validateInsertionFixture(fixture, errors, where) {
   }
 }
 
+function validateCompletionWriteFixture(fixture, errors, where) {
+  for (const key of unknownKeys(fixture, ["name", "content", "line", "today", "config", "placement", "expectedContent"])) {
+    errors.push(`${where}: unknown top-level key "${key}"`);
+  }
+  validateConfig(fixture.config, errors, where);
+  if (typeof fixture.content !== "string" || fixture.content === "") {
+    errors.push(`${where}: content must be a non-empty string`);
+  }
+  if (!Number.isInteger(fixture.line) || fixture.line < 0) {
+    errors.push(`${where}: line must be a 0-based line number`);
+  }
+  if (!isDateLike(fixture.today, DATE_RE) || fixture.today?.startsWith("invalid:")) {
+    errors.push(`${where}: today must be a YYYY-MM-DD string`);
+  }
+  if (fixture.placement !== undefined && !["above", "below"].includes(fixture.placement)) {
+    errors.push(`${where}: placement must be "above" or "below"`);
+  }
+  if (typeof fixture.expectedContent !== "string") {
+    errors.push(`${where}: expectedContent is required`);
+  }
+}
+
 const VALIDATORS_BY_SHAPE = {
   line: validateLineFixture,
   document: validateDocumentFixture,
   mutation: validateMutationFixture,
   "recurrence-completion": validateRecurrenceCompletionFixture,
   insertion: validateInsertionFixture,
+  "completion-write": validateCompletionWriteFixture,
 };
 
 /** Validates one category's fixture array. Returns a flat list of human-readable error

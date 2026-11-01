@@ -1,0 +1,38 @@
+[
+  {
+    "name": "whitespace-paragraph-separator-trimmed-from-description",
+    "input": "- [ ] Buy milk #task \u2029",
+    "expected": { "isTask": true, "description": "Buy milk" },
+    "serialized": "- [ ] Buy milk #task \u2029"
+  },
+  {
+    "name": "whitespace-vertical-tab-trimmed-from-description",
+    "input": "- [ ] Buy milk\u000b #task",
+    "expected": { "isTask": true, "description": "Buy milk" },
+    "serialized": "- [ ] Buy milk\u000b #task"
+  },
+  {
+    "name": "whitespace-zero-width-no-break-space-ends-a-field-value",
+    "input": "- [ ] Buy milk #task 🔁 every day \uFEFF",
+    "expected": { "isTask": true, "recurrenceRule": "every day", "description": "Buy milk" },
+    "serialized": "- [ ] Buy milk #task 🔁 every day \uFEFF"
+  },
+  {
+    "name": "whitespace-form-feed-ends-a-field-value",
+    "input": "- [ ] Buy milk 🔁 every day  \f   #task",
+    "expected": { "isTask": true, "recurrenceRule": "every day", "description": "Buy milk" },
+    "serialized": "- [ ] Buy milk 🔁 every day  \f   #task"
+  },
+  {
+    "name": "whitespace-marker-followed-only-by-zero-width-no-break-space-left-literal",
+    "input": "- [ ] Buy milk #task ➕ \uFEFF",
+    "expected": { "isTask": true, "description": "Buy milk ➕" },
+    "serialized": "- [ ] Buy milk #task ➕ \uFEFF"
+  },
+  {
+    "name": "whitespace-next-line-character-is-not-whitespace",
+    "input": "- [ ] Buy milk #task 🆔 \u0085",
+    "expected": { "isTask": true, "id": "\u0085", "description": "Buy milk" },
+    "serialized": "- [ ] Buy milk #task 🆔 \u0085"
+  }
+]

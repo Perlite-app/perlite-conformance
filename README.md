@@ -15,6 +15,8 @@ correctly" has one answer instead of one answer per codebase.
   `node tools/build-index.mjs` after touching `fixtures/`).
 - **`REPORT.md`** — the tooling: the validator, the fixture-index freshness check, and
   the format two implementations' results are compared in.
+- **`DIFFERENTIAL.md`** — differential fuzzing: generate random cases, run them through
+  two implementations, list every case where they disagree.
 
 ```sh
 node tools/validate.mjs   # validate every fixture + confirm index.json is fresh

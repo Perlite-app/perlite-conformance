@@ -113,5 +113,17 @@
     "input": "- [ ] Buy milk #task 📅 2026-8-13",
     "expected": { "isTask": true, "due": "invalid:2026-8-13" },
     "serialized": "- [ ] Buy milk #task 📅 2026-8-13"
+  },
+  {
+    "name": "date-due-malformed-signed-year",
+    "input": "- [ ] Buy milk #task 📅 +202-01-05",
+    "expected": { "isTask": true, "due": "invalid:+202-01-05" },
+    "serialized": "- [ ] Buy milk #task 📅 +202-01-05"
+  },
+  {
+    "name": "date-reminder-signed-time-is-not-a-time",
+    "input": "- [ ] Buy milk #task ⏰ 2026-08-13 +9:30",
+    "expected": { "isTask": true, "reminder": "2026-08-13", "description": "Buy milk +9:30" },
+    "serialized": "- [ ] Buy milk #task ⏰ 2026-08-13 +9:30"
   }
 ]

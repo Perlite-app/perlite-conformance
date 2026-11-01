@@ -129,5 +129,18 @@
       "taskCount": 1,
       "tasks": [{ "parentHeading": null }]
     }
+  },
+  {
+    "name": "document-frontmatter-tag-line-with-stray-carriage-return",
+    "content": "---\r\ntags: [a]\r\r\n---\r\n- [ ] Buy milk #task\r\n",
+    "expected": { "taskCount": 1, "frontmatterTags": ["#a"] }
+  },
+  {
+    "name": "document-heading-paragraph-separator-trimmed",
+    "content": "# Groceries\u2029\n- [ ] Buy milk #task\n",
+    "expected": {
+      "taskCount": 1,
+      "tasks": [{ "parentHeading": "Groceries" }]
+    }
   }
 ]

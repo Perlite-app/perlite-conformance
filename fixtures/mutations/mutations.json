@@ -103,5 +103,11 @@
     "input": "- [ ] Standup #task ⏰ 2026-08-19 20:15",
     "mutations": [{ "op": "setReminder", "value": null }],
     "expectedSerialized": "- [ ] Standup #task"
+  },
+  {
+    "name": "mutation-set-recurrence-keeps-trailing-zero-width-no-break-space",
+    "input": "- [ ] Buy milk #task 🔁 every week \uFEFF ⏰ 2026-08-13",
+    "mutations": [{ "op": "setRecurrence", "value": "every month" }],
+    "expectedSerialized": "- [ ] Buy milk #task 🔁 every month \uFEFF ⏰ 2026-08-13"
   }
 ]

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "totalFixtures": 119,
+  "totalFixtures": 134,
   "categories": [
     {
       "name": "dates",
       "shape": "line",
       "file": "dates.json",
-      "count": 18,
+      "count": 20,
       "ids": [
         "dates/date-due",
         "dates/date-due-alternate-marker-calendar",
@@ -25,7 +25,9 @@
         "dates/date-reminder-malformed-not-a-date",
         "dates/date-due-malformed-out-of-range",
         "dates/date-due-malformed-not-a-date",
-        "dates/date-due-malformed-wrong-shape"
+        "dates/date-due-malformed-wrong-shape",
+        "dates/date-due-malformed-signed-year",
+        "dates/date-reminder-signed-time-is-not-a-time"
       ]
     },
     {
@@ -44,7 +46,7 @@
       "name": "documents",
       "shape": "document",
       "file": "documents.json",
-      "count": 18,
+      "count": 20,
       "ids": [
         "documents/document-backtick-fence-excludes-tasks",
         "documents/document-tilde-fence-excludes-tasks",
@@ -63,7 +65,9 @@
         "documents/document-heading-inside-fence-is-not-a-heading",
         "documents/document-heading-with-closing-hash-sequence",
         "documents/document-heading-trailing-whitespace-is-trimmed",
-        "documents/document-seven-hashes-is-not-a-heading"
+        "documents/document-seven-hashes-is-not-a-heading",
+        "documents/document-frontmatter-tag-line-with-stray-carriage-return",
+        "documents/document-heading-paragraph-separator-trimmed"
       ]
     },
     {
@@ -83,7 +87,7 @@
       "name": "mutations",
       "shape": "mutation",
       "file": "mutations.json",
-      "count": 17,
+      "count": 18,
       "ids": [
         "mutations/mutation-set-due-inserts-field",
         "mutations/mutation-set-due-replaces-existing-value-only",
@@ -101,7 +105,8 @@
         "mutations/mutation-remove-recurrence",
         "mutations/mutation-set-reminder-inserts-field-with-time",
         "mutations/mutation-set-reminder-replaces-existing-value-only",
-        "mutations/mutation-remove-reminder"
+        "mutations/mutation-remove-reminder",
+        "mutations/mutation-set-recurrence-keeps-trailing-zero-width-no-break-space"
       ]
     },
     {
@@ -156,7 +161,7 @@
       "name": "recurrence-completion",
       "shape": "recurrence-completion",
       "file": "recurrence-completion.json",
-      "count": 13,
+      "count": 17,
       "ids": [
         "recurrence-completion/recurrence-completion-daily-with-interval",
         "recurrence-completion/recurrence-completion-weekly-plain",
@@ -170,7 +175,11 @@
         "recurrence-completion/recurrence-completion-non-recurring-task-has-no-next-instance",
         "recurrence-completion/recurrence-completion-custom-status-resets-to-todo-on-next-instance",
         "recurrence-completion/recurrence-completion-unparseable-rule-refuses",
-        "recurrence-completion/recurrence-completion-already-done-task-does-not-leak-done-date-into-next-instance"
+        "recurrence-completion/recurrence-completion-already-done-task-does-not-leak-done-date-into-next-instance",
+        "recurrence-completion/recurrence-completion-year-below-100-keeps-its-century",
+        "recurrence-completion/recurrence-completion-weekday-before-1582-uses-proleptic-gregorian",
+        "recurrence-completion/recurrence-completion-monthly-into-year-100",
+        "recurrence-completion/recurrence-completion-rule-followed-by-zero-width-no-break-space"
       ]
     },
     {
@@ -207,6 +216,20 @@
         "tags/tag-global-filter-excluded-from-tags-and-description",
         "tags/tag-stops-at-trailing-punctuation",
         "tags/tag-no-global-filter-configured"
+      ]
+    },
+    {
+      "name": "whitespace",
+      "shape": "line",
+      "file": "whitespace.json",
+      "count": 6,
+      "ids": [
+        "whitespace/whitespace-paragraph-separator-trimmed-from-description",
+        "whitespace/whitespace-vertical-tab-trimmed-from-description",
+        "whitespace/whitespace-zero-width-no-break-space-ends-a-field-value",
+        "whitespace/whitespace-form-feed-ends-a-field-value",
+        "whitespace/whitespace-marker-followed-only-by-zero-width-no-break-space-left-literal",
+        "whitespace/whitespace-next-line-character-is-not-whitespace"
       ]
     }
   ]

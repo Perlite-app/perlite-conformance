@@ -112,5 +112,41 @@
       "completedLine": "- [x] Water plants #task 🔁 every week ✅ 2026-08-14 📅 2026-08-21",
       "nextInstanceLine": "- [ ] Water plants #task 🔁 every week 📅 2026-08-28"
     }
+  },
+  {
+    "name": "recurrence-completion-year-below-100-keeps-its-century",
+    "input": "- [ ] Water plants #task 🔁 every week 📅 0001-01-01",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Water plants #task 🔁 every week 📅 0001-01-01 ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Water plants #task 🔁 every week 📅 0001-01-08"
+    }
+  },
+  {
+    "name": "recurrence-completion-weekday-before-1582-uses-proleptic-gregorian",
+    "input": "- [ ] Church #task 🔁 every week on Sunday 📅 1582-10-01",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Church #task 🔁 every week on Sunday 📅 1582-10-01 ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Church #task 🔁 every week on Sunday 📅 1582-10-03"
+    }
+  },
+  {
+    "name": "recurrence-completion-monthly-into-year-100",
+    "input": "- [ ] Pay rent #task 🔁 every month 📅 0099-12-31",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Pay rent #task 🔁 every month 📅 0099-12-31 ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Pay rent #task 🔁 every month 📅 0100-01-31"
+    }
+  },
+  {
+    "name": "recurrence-completion-rule-followed-by-zero-width-no-break-space",
+    "input": "- [ ] Water plants #task 🔁 every week \uFEFF 📅 2026-08-13",
+    "today": "2026-08-15",
+    "expected": {
+      "completedLine": "- [x] Water plants #task 🔁 every week \uFEFF 📅 2026-08-13 ✅ 2026-08-15",
+      "nextInstanceLine": "- [ ] Water plants #task 🔁 every week \uFEFF 📅 2026-08-20"
+    }
   }
 ]

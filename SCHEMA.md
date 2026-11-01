@@ -18,7 +18,24 @@ uses:
 - `mutations/` → **mutation fixtures**
 - `recurrence-completion/` → **recurrence completion fixtures**
 - everything else (`status/`, `dates/`, `priority/`, `tags/`, `links/`, `recurrence/`,
-  `dependencies/`, `preservation/`) → **line fixtures**
+  `dependencies/`, `preservation/`, `whitespace/`) → **line fixtures**
+
+## Text the parser sees
+
+- **Whitespace** is JavaScript's: what `\s` and `String.prototype.trim` match — tab,
+  line feed, `\v`, `\f`, `\r`, space, U+00A0, U+1680, U+2000–U+200A, U+2028, U+2029,
+  U+202F, U+205F, U+3000 and U+FEFF. That's the Tasks plugin's own definition. It is
+  wider than Foundation's `.whitespaces` and, unlike `Character.isWhitespace`, does not
+  include U+0085. Every place an implementation trims or splits on whitespace uses it
+  (`whitespace/` pins the edges).
+- **Dates and times** are ASCII digits only: `+202-01-05` is a malformed date and
+  `+9:30` is not a time.
+- **Calendar arithmetic** (recurrence) is on the proleptic Gregorian calendar for every
+  year, as moment.js does — no Julian switch in 1582, and years below 100 are not
+  shifted into the 1900s.
+- **No byte-order mark.** Obsidian's `vault.read` and Foundation's
+  `String(contentsOf:encoding:)` both drop a leading U+FEFF before a parser sees the
+  file (and neither writes one back), so no fixture starts with one.
 
 ## Shared `config` object
 
